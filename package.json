@@ -19,6 +19,7 @@
 		"styled-reset": "^4.4.2"
 	},
 	"devDependencies": {
+		"@types/node": "^18.11.9",
 		"@types/react": "^18.0.24",
 		"@types/react-dom": "^18.0.8",
 		"@types/styled-components": "^5.1.26",
