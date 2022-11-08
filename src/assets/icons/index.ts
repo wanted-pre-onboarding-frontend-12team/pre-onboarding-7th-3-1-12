@@ -1,4 +1,2 @@
-import CloseIcon from './close.svg';
-import SearchIcon from './search.svg';
-
-export default { CloseIcon, SearchIcon };
+export { default as CloseIcon } from './close.svg';
+export { default as SearchIcon } from './search.svg';
