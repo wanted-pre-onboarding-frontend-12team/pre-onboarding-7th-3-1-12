@@ -1,4 +1,8 @@
+const BASE_FONT_SIZE_PIXEL = 16;
+const pixelToRem = (px: number) => `${px / BASE_FONT_SIZE_PIXEL}rem`;
+
 const theme = {
+	maxWidth: pixelToRem(1040),
 	fontWeights: {
 		normal: 400,
 		bold: 700,

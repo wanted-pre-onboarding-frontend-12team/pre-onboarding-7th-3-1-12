@@ -2,6 +2,7 @@ import 'styled-components';
 
 declare module 'styled-components' {
 	export interface DefaultTheme {
+		maxWidth: string;
 		fontWeights: {
 			normal: 400;
 			bold: 700;
