@@ -24,7 +24,7 @@
 		"@typescript-eslint/triple-slash-reference": "off",
 		"react/react-in-jsx-scope": "off",
 		"no-var": "error",
-		"no-unused-vars": "error",
+		"no-unused-vars": ["error", { "args": "none" }],
 		"eqeqeq": "error",
 		"no-console": ["error", { "allow": ["warn", "error"] }]
 	}
