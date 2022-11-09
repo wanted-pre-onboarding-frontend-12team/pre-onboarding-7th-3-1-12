@@ -5,6 +5,7 @@ export const MainPageWrap = styled.main`
 	flex-direction: column;
 	align-items: center;
 	height: 100vh;
-	padding-top: 120px;
+	overflow-y: auto;
+	padding: 120px 0 50px;
 	background-color: ${({ theme }) => theme.color.skyblue};
 `;

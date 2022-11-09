@@ -1,5 +1,4 @@
 export type RecObj = {
-	[key: string]: string;
+	sickCd: string;
+	sickNm: string;
 };
-
-export type RecArr = { recWord: RecObj[] };

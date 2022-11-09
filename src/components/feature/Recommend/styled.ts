@@ -12,4 +12,7 @@ export const RecWrap = styled.ul`
 export const RecItem = styled.li`
 	padding: 15px 0;
 	color: ${({ theme }) => theme.color.black};
+	.bold {
+		font-weight: bold;
+	}
 `;
