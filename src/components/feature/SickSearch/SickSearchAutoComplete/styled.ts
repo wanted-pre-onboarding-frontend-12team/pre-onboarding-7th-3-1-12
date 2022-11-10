@@ -20,13 +20,28 @@ export const Caption = styled.span`
 	color: ${({ theme }) => theme.colors.lightgray};
 `;
 
-export const AutoCompleteItemWrapper = styled.li`
-	display: flex;
+export const AutoCompleteItemWrapper = styled.li<{ isFocused?: boolean }>`
+	display: block;
 	align-items: center;
+	width: 480px;
 	padding: 1em 1.5em;
+	background-color: ${({ isFocused, theme }) => isFocused && theme.colors.lightgray};
+	line-height: 1.2;
 	cursor: pointer;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 
 	&:hover {
 		background-color: ${({ theme }) => theme.colors.lightgray};
 	}
+`;
+
+export const TextWrapper = styled.span`
+	margin-left: 0.5rem;
+`;
+
+export const HightLightText = styled.strong`
+	font-weight: ${({ theme }) => theme.fontWeights.bold};
+	color: ${({ theme }) => theme.colors.primary};
 `;
