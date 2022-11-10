@@ -1,11 +1,12 @@
 import SickSearchForm from '@src/components/feature/SickSearch/SickSearchForm';
 import SickSearchAutoComplete from '@src/components/feature/SickSearch/SickSearchAutoComplete';
 import * as S from './styled';
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Sick } from '@src/types/sick';
 import { getSicksByIncludeKeyword } from '@src/core/apis/sick';
 import { isNotEmptyArray } from '@src/utils/arrayUtils';
 import { useDebounce } from '@src/utils/lazyUtils';
+import InMemoryCache from '@src/utils/cache';
 
 const autoCompleteTargetKeys = {
 	ARROW_UP: 'ArrowUp',
@@ -15,6 +16,8 @@ const autoCompleteTargetKeys = {
 } as const;
 
 const SickSearch = () => {
+	const sickInCache = useMemo(() => new InMemoryCache(), []);
+
 	const [sickKeyword, setSickKeyword] = useState('');
 	const [recommendSicks, setRecommendSicks] = useState<Sick[]>([]);
 
@@ -22,9 +25,15 @@ const SickSearch = () => {
 		if (!isSickSearchFormFocused) {
 			setIsSickSearchFormFocused(true);
 		}
+
 		setSickKeyword(newSickKeyword);
 
 		if (newSickKeyword) {
+			if (sickInCache.isExistingInCache(newSickKeyword)) {
+				handleSetRecommandSicksByCache(sickInCache.getCacheItem(newSickKeyword) as Sick[]);
+				return;
+			}
+
 			handleSetRecommendSicks(newSickKeyword);
 		}
 	};
@@ -35,7 +44,13 @@ const SickSearch = () => {
 
 	const handleSetRecommendSicks = useDebounce(async (newSickKeyword: string) => {
 		const newRecommendSicks = await getSicksByIncludeKeyword(newSickKeyword);
+		sickInCache.setCacheItem(newSickKeyword, newRecommendSicks);
 		setRecommendSicks(newRecommendSicks);
+	}, 300);
+
+	const handleSetRecommandSicksByCache = useDebounce((sicksInCache: Sick[]) => {
+		console.info('Local Cache Hit !');
+		setRecommendSicks(sicksInCache);
 	}, 300);
 
 	const [currentAutoCompleteIndex, setCurrentAutoCompleteIndex] = useState(-1);
