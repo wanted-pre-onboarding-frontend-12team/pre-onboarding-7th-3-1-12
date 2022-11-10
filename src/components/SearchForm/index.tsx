@@ -3,6 +3,7 @@ import { getRelatedKeywords } from '../../api/api';
 import useDebounce from '../../hooks/useDebounce';
 import { sickInfo } from '../../type/type';
 import RelatedSearchTerm from './RelatedSearchTerm';
+import searchIcon from '../../assets/searchIcon.svg';
 
 const SearchForm = () => {
 	const [searchWord, setSearchWord] = useState<string>('');
@@ -51,11 +52,14 @@ const SearchForm = () => {
 	}, [debounceWord]);
 
 	return (
-		<>
-			<form onSubmit={onSearch}>
-				<span>국내 모든 임상시험 검색하고 온라인으로 참여하기</span>
-				<input placeholder="질환명을 입력해 주세요." onChange={onChange} onKeyDown={onKeyDown}></input>
-				<button type={'submit'}>검색</button>
+		<section className="bg-sky-200 flex-col justify-center items-center ">
+			<form className="flex-col justify-center items-center" onSubmit={onSearch}>
+				<h3 className="text-2xl flex-col justify-center items-center">국내 모든 임상시험 검색하고 온라인으로 참여하기</h3>
+				<div className="flex-col justify-center items-center">
+					<input placeholder="질환명을 입력해 주세요." onChange={onChange} onKeyDown={onKeyDown}></input>
+					<button className="" type={'submit'}></button>
+					<img className="bg-blue-500 rounded-full w-5px" src={searchIcon} />
+				</div>
 			</form>
 
 			<div>{searchWord}</div>
@@ -66,7 +70,7 @@ const SearchForm = () => {
 			) : (
 				<div>검색어 없음</div>
 			)}
-		</>
+		</section>
 	);
 };
 
