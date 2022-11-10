@@ -23,7 +23,10 @@ const SickSearch = () => {
 			setIsSickSearchFormFocused(true);
 		}
 		setSickKeyword(newSickKeyword);
-		handleSetRecommendSicks(newSickKeyword);
+
+		if (newSickKeyword) {
+			handleSetRecommendSicks(newSickKeyword);
+		}
 	};
 
 	const handleSickKeywordReset = () => {

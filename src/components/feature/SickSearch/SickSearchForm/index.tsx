@@ -34,7 +34,7 @@ const SickSearchForm = (props: Props) => {
 				placeholder="🔍 질환명을 입력해 주세요."
 				value={props.sickKeyword}
 				ref={props.sickSearchInputRef}
-				onInput={handleSickSearchInputChange}
+				onChange={handleSickSearchInputChange}
 				onKeyDown={props.onSickSearchInputKeydown}
 				onFocus={handleSickSearchInputFocus}
 				onBlur={handleSickSearchInputBlur}
