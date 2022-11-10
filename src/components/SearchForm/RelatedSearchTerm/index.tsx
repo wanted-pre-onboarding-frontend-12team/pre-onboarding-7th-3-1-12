@@ -12,7 +12,7 @@ const RelatedSearchTerm = ({ data, word, focuseIndex }: Props, ref: React.Ref<HT
 		return (
 			<>
 				{target.split(boldWord)[0]}
-				<b>{boldWord}</b>
+				<b>{target.slice(target.indexOf(boldWord), boldWord.length + target.indexOf(boldWord))}</b>
 				{target.split(boldWord)[1]}
 			</>
 		);
