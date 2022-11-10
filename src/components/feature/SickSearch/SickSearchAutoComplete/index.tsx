@@ -16,6 +16,13 @@ const SickSearchAutoComplete = (props: Props) => {
 				<S.Container>
 					{isNotEmptyArray(props.recommendSicks) ? (
 						<>
+							<S.AutoCompleteItemWrapper>
+								🔍
+								<S.TextWrapper>
+									<S.HightLightText>{props.sickKeyword}</S.HightLightText>
+								</S.TextWrapper>
+							</S.AutoCompleteItemWrapper>
+
 							<S.Caption>추천 검색어</S.Caption>
 							{props.recommendSicks.map((recommendSick) => {
 								return (
