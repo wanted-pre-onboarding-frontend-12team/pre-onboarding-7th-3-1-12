@@ -10,9 +10,9 @@ const SickSearch = () => {
 	const [recommendSicks, setRecommendSicks] = useState<Sick[]>([]);
 
 	const handleSickKeywordChange = async (newSickKeyword: string) => {
+		setSickKeyword(newSickKeyword);
 		const newRecommendSicks = await getSicksByIncludeKeyword(newSickKeyword);
 		setRecommendSicks(newRecommendSicks);
-		setSickKeyword(newSickKeyword);
 	};
 
 	const handleSickKeywordReset = () => {

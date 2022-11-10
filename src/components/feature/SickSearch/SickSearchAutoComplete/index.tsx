@@ -12,31 +12,37 @@ type Props = {
 const SickSearchAutoComplete = (props: Props) => {
 	return (
 		<>
-			{props.sickKeyword && isNotEmptyArray(props.recommendSicks) && (
+			{props.sickKeyword && (
 				<S.Container>
-					<S.Caption>추천 검색어</S.Caption>
-					{props.recommendSicks.map((recommendSick) => {
-						return (
-							<S.AutoCompleteItemWrapper key={recommendSick.sickCd}>
-								🔍
-								<S.TextWrapper>
-									{splitTargetRegardlessOfStringCase(recommendSick.sickNm, props.sickKeyword).map(
-										(splitedItem, index, splitedItems) => {
-											if (splitedItems.length - 1 === index) {
-												return <React.Fragment key={index}>{splitedItem}</React.Fragment>;
-											}
-											return (
-												<React.Fragment key={index}>
-													{splitedItem}
-													<S.HightLightText>{props.sickKeyword.toUpperCase()}</S.HightLightText>
-												</React.Fragment>
-											);
-										},
-									)}
-								</S.TextWrapper>
-							</S.AutoCompleteItemWrapper>
-						);
-					})}
+					{isNotEmptyArray(props.recommendSicks) ? (
+						<>
+							<S.Caption>추천 검색어</S.Caption>
+							{props.recommendSicks.map((recommendSick) => {
+								return (
+									<S.AutoCompleteItemWrapper key={recommendSick.sickCd}>
+										🔍
+										<S.TextWrapper>
+											{splitTargetRegardlessOfStringCase(recommendSick.sickNm, props.sickKeyword).map(
+												(splitedItem, index, splitedItems) => {
+													if (splitedItems.length - 1 === index) {
+														return <React.Fragment key={index}>{splitedItem}</React.Fragment>;
+													}
+													return (
+														<React.Fragment key={index}>
+															{splitedItem}
+															<S.HightLightText>{props.sickKeyword.toUpperCase()}</S.HightLightText>
+														</React.Fragment>
+													);
+												},
+											)}
+										</S.TextWrapper>
+									</S.AutoCompleteItemWrapper>
+								);
+							})}
+						</>
+					) : (
+						<S.AutoCompleteItemWrapper>🔍 "{props.sickKeyword}"와(과) 연관된 추천 검색어가 없습니다.</S.AutoCompleteItemWrapper>
+					)}
 				</S.Container>
 			)}
 		</>
