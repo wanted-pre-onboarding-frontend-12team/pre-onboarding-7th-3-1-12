@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { Sick } from '@src/types/sick';
 import { getSicksByIncludeKeyword } from '@src/core/apis/sick';
 import { isNotEmptyArray } from '@src/utils/arrayUtils';
+import { useDebounce } from '@src/utils/lazyUtils';
 
 const autoCompleteTargetKeys = {
 	ARROW_UP: 'ArrowUp',
@@ -19,13 +20,17 @@ const SickSearch = () => {
 
 	const handleSickKeywordChange = async (newSickKeyword: string) => {
 		setSickKeyword(newSickKeyword);
-		const newRecommendSicks = await getSicksByIncludeKeyword(newSickKeyword);
-		setRecommendSicks(newRecommendSicks);
+		handleSetRecommendSicks(newSickKeyword);
 	};
 
 	const handleSickKeywordReset = () => {
 		setSickKeyword('');
 	};
+
+	const handleSetRecommendSicks = useDebounce(async (newSickKeyword: string) => {
+		const newRecommendSicks = await getSicksByIncludeKeyword(newSickKeyword);
+		setRecommendSicks(newRecommendSicks);
+	}, 300);
 
 	const [currentAutoCompleteIndex, setCurrentAutoCompleteIndex] = useState(-1);
 	const autoCompleteRef = useRef<HTMLUListElement>(null) as React.MutableRefObject<HTMLUListElement>;
