@@ -5,20 +5,32 @@ type Props = {
 	sickKeyword: string;
 	onSickKeywordChange: (newSickKeyowrd: string) => void;
 	onSickKeywordReset: () => void;
+	onSickSearchInputKeydown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
 const SickSearchForm = (props: Props) => {
-	const handleSickSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const handleSickSearchInputFocus = (event: React.FocusEvent<HTMLInputElement>) => {};
+
+	const handleSickSearchInputBlur = (event: React.FocusEvent<HTMLInputElement>) => {};
+
+	const handleSickSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		props.onSickKeywordChange(event.currentTarget.value);
 	};
 
+	const handleSickSearchFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+	};
+
 	return (
-		<S.SickSearchForm onSubmit={() => {}}>
+		<S.SickSearchForm onSubmit={handleSickSearchFormSubmit}>
 			<S.SickSearchInput
 				type="text"
 				placeholder="🔍 질환명을 입력해 주세요."
 				value={props.sickKeyword}
-				onChange={handleSickSearchInput}
+				onKeyDown={props.onSickSearchInputKeydown}
+				onFocus={handleSickSearchInputFocus}
+				onBlur={handleSickSearchInputBlur}
+				onChange={handleSickSearchInputChange}
 			/>
 			<S.SickSearchResetButton type="button" onClick={props.onSickKeywordReset}>
 				<img src={CloseIcon} alt="검색어 초기화" className="search-reset" />

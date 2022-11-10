@@ -7,16 +7,18 @@ import * as S from './styled';
 type Props = {
 	sickKeyword: string;
 	recommendSicks: Sick[];
+	currentAutoCompleteIndex: number;
+	autoCompleteRef: React.MutableRefObject<HTMLUListElement>;
 };
 
 const SickSearchAutoComplete = (props: Props) => {
 	return (
 		<>
 			{props.sickKeyword && (
-				<S.Container>
+				<S.Container ref={props.autoCompleteRef}>
 					{isNotEmptyArray(props.recommendSicks) ? (
 						<>
-							<S.AutoCompleteItemWrapper>
+							<S.AutoCompleteItemWrapper isFocused={props.currentAutoCompleteIndex === -1}>
 								🔍
 								<S.TextWrapper>
 									<S.HightLightText>{props.sickKeyword}</S.HightLightText>
@@ -24,9 +26,9 @@ const SickSearchAutoComplete = (props: Props) => {
 							</S.AutoCompleteItemWrapper>
 
 							<S.Caption>추천 검색어</S.Caption>
-							{props.recommendSicks.map((recommendSick) => {
+							{props.recommendSicks.map((recommendSick, index) => {
 								return (
-									<S.AutoCompleteItemWrapper key={recommendSick.sickCd}>
+									<S.AutoCompleteItemWrapper key={recommendSick.sickCd} isFocused={props.currentAutoCompleteIndex === index}>
 										🔍
 										<S.TextWrapper>
 											{splitTargetRegardlessOfStringCase(recommendSick.sickNm, props.sickKeyword).map(
