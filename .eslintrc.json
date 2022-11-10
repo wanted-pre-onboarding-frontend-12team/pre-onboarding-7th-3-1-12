@@ -25,7 +25,6 @@
 		"react/react-in-jsx-scope": "off",
 		"no-var": "error",
 		"no-unused-vars": "error",
-		"eqeqeq": "error",
-		"no-console": ["error", { "allow": ["warn", "error"] }]
+		"eqeqeq": "error"
 	}
 }

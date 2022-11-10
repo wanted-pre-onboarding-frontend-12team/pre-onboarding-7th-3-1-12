@@ -3,3 +3,7 @@ node_modules
 
 # Dont`t lint build output
 dist
+
+# Dont`t lint configuration
+.eslintrc.json
+.tsconfig.json
