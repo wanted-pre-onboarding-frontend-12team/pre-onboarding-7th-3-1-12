@@ -15,6 +15,8 @@ export const AutoSearchContainer = styled.div`
 
 export const AutoSearchWrap = styled.ul`
 	display: flex;
+	overflow-y: overlay;
+	height: 100%;
 	flex-direction: column;
 	text-align: start;
 	padding-left: 24px;

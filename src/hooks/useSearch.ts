@@ -24,7 +24,7 @@ const useSearch = () => {
 		} else if (debouncedKeyword && !sickMap.has(debouncedKeyword)) {
 			const newData = await getSick(debouncedKeyword);
 			if (newData.length !== 0) {
-				sickMap.set(debouncedKeyword, newData.slice(0, 8));
+				sickMap.set(debouncedKeyword, newData);
 			}
 		}
 		setCacheData(sickMap.get(debouncedKeyword)!);
