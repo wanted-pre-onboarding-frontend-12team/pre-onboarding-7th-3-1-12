@@ -1,18 +1,16 @@
-import React, { Dispatch, SetStateAction, useRef } from 'react';
+import React, { useRef } from 'react';
 import { AutoSearchContainer, AutoSearchWrap, AutoSearchData } from './styled';
 import { Sick } from '../../../types/sick';
 import { splitTargetRegardlessOfStringCase } from '../../../hooks/stringUtils';
-import useKeyControl from '../../../hooks/useKeyControl';
 
 type Props = {
 	keyword: string;
 	cacheData: Sick[];
-	setCacheData: Dispatch<SetStateAction<Sick[]>>;
+	focusIndex: number;
 };
 
-const AutoSearch = ({ keyword, cacheData }: Props) => {
+const AutoSearch = ({ keyword, cacheData, focusIndex }: Props) => {
 	const autoRef = useRef<HTMLUListElement>(null);
-	const { focusIndex } = useKeyControl();
 
 	return (
 		<AutoSearchContainer>

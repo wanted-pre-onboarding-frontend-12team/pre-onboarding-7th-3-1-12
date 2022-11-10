@@ -1,25 +1,24 @@
 import { useState } from 'react';
+import { Sick } from '../types/sick';
 
-const useKeyControl = () => {
+const useKeyControl = (cacheData: Sick[]) => {
 	const [focusIndex, setFocusIndex] = useState<number>(-1);
 
 	const keyHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		const { key } = e;
+		if (cacheData) {
+			const { key } = e;
 
-		switch (key) {
-			case 'ArrowDown':
-				setFocusIndex((prev) => prev + 1);
-				break;
-			case 'ArrowUp':
-				if (focusIndex === -1) return;
-				setFocusIndex((prev) => prev - 1);
-				break;
-			case 'Escape':
-				setFocusIndex(-1);
-				break;
-			default:
-				setFocusIndex(-1);
-				break;
+			switch (key) {
+				case 'ArrowDown':
+					setFocusIndex((prev) => (prev + 1) % cacheData.length);
+					break;
+				case 'ArrowUp':
+					setFocusIndex((prev) => (prev - 1 + cacheData.length) % cacheData.length);
+					break;
+				case 'Escape':
+					setFocusIndex(-1);
+					break;
+			}
 		}
 	};
 
