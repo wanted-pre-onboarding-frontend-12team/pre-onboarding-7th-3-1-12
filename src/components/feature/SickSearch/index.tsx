@@ -19,6 +19,9 @@ const SickSearch = () => {
 	const [recommendSicks, setRecommendSicks] = useState<Sick[]>([]);
 
 	const handleSickKeywordChange = async (newSickKeyword: string) => {
+		if (!isSickSearchFormFocused) {
+			setIsSickSearchFormFocused(true);
+		}
 		setSickKeyword(newSickKeyword);
 		handleSetRecommendSicks(newSickKeyword);
 	};
@@ -34,8 +37,14 @@ const SickSearch = () => {
 
 	const [currentAutoCompleteIndex, setCurrentAutoCompleteIndex] = useState(-1);
 	const autoCompleteRef = useRef<HTMLUListElement>(null) as React.MutableRefObject<HTMLUListElement>;
+	const sickSearchInputRef = useRef<HTMLInputElement>(null) as React.MutableRefObject<HTMLInputElement>;
 
 	const handleSickSearchInputKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+		if (event.key === autoCompleteTargetKeys.ESCAPE) {
+			handleSickSearchFormFousedChange(false);
+			return;
+		}
+
 		if (!isNotEmptyArray(recommendSicks) || !autoCompleteRef) {
 			setCurrentAutoCompleteIndex(-1);
 			return;
@@ -43,6 +52,7 @@ const SickSearch = () => {
 
 		switch (event.key) {
 			case autoCompleteTargetKeys.ARROW_DOWN:
+				event.preventDefault();
 				if (currentAutoCompleteIndex + 1 === autoCompleteRef?.current?.childElementCount - 2) {
 					setCurrentAutoCompleteIndex(-1);
 					break;
@@ -50,6 +60,7 @@ const SickSearch = () => {
 				setCurrentAutoCompleteIndex(currentAutoCompleteIndex + 1);
 				break;
 			case autoCompleteTargetKeys.ARROW_UP:
+				event.preventDefault();
 				if (currentAutoCompleteIndex - 1 < -1) {
 					setCurrentAutoCompleteIndex(autoCompleteRef?.current?.childElementCount - 3);
 					break;
@@ -59,27 +70,34 @@ const SickSearch = () => {
 			case autoCompleteTargetKeys.BACK_SPACE:
 				setCurrentAutoCompleteIndex(-1);
 				break;
-			case autoCompleteTargetKeys.ESCAPE:
-				setCurrentAutoCompleteIndex(-1);
-				break;
 			default:
 				break;
 		}
 	};
 
+	const [isSickSearchFormFocused, setIsSickSearchFormFocused] = useState(false);
+
+	const handleSickSearchFormFousedChange = (newFocusedStatus: boolean) => {
+		setIsSickSearchFormFocused(newFocusedStatus);
+		setCurrentAutoCompleteIndex(-1);
+	};
+
 	return (
-		<S.Container>
+		<S.Container isFocused={isSickSearchFormFocused}>
 			<SickSearchForm
+				sickSearchInputRef={sickSearchInputRef}
 				sickKeyword={sickKeyword}
+				onSickSearchFormFousedChange={handleSickSearchFormFousedChange}
 				onSickKeywordChange={handleSickKeywordChange}
 				onSickKeywordReset={handleSickKeywordReset}
 				onSickSearchInputKeydown={handleSickSearchInputKeydown}
 			/>
 			<SickSearchAutoComplete
+				autoCompleteRef={autoCompleteRef}
 				sickKeyword={sickKeyword}
 				recommendSicks={recommendSicks}
+				isAutoCompleteShow={isSickSearchFormFocused}
 				currentAutoCompleteIndex={currentAutoCompleteIndex}
-				autoCompleteRef={autoCompleteRef}
 			/>
 		</S.Container>
 	);

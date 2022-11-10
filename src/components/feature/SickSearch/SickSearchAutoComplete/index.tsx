@@ -5,17 +5,18 @@ import { splitTargetRegardlessOfStringCase } from '@src/utils/stringUtils';
 import * as S from './styled';
 
 type Props = {
+	autoCompleteRef: React.MutableRefObject<HTMLUListElement>;
 	sickKeyword: string;
 	recommendSicks: Sick[];
+	isAutoCompleteShow: boolean;
 	currentAutoCompleteIndex: number;
-	autoCompleteRef: React.MutableRefObject<HTMLUListElement>;
 };
 
 const SickSearchAutoComplete = (props: Props) => {
 	return (
 		<>
 			{props.sickKeyword && (
-				<S.Container ref={props.autoCompleteRef}>
+				<S.Container ref={props.autoCompleteRef} isShow={props.isAutoCompleteShow}>
 					{isNotEmptyArray(props.recommendSicks) ? (
 						<>
 							<S.AutoCompleteItemWrapper isFocused={props.currentAutoCompleteIndex === -1}>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.ul`
+export const Container = styled.ul<{ isShow: boolean }>`
 	position: absolute;
 	top: 80px;
 	left: 0;
@@ -12,6 +12,7 @@ export const Container = styled.ul`
 	background-color: ${({ theme }) => theme.colors.white};
 	-webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
 	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+	opacity: ${({ isShow }) => (isShow ? 1 : 0)};
 `;
 
 export const Caption = styled.span`
