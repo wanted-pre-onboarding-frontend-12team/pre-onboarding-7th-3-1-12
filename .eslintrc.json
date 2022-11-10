@@ -26,6 +26,6 @@
 		"no-var": "error",
 		"no-unused-vars": "error",
 		"eqeqeq": "error",
-		"no-console": ["error", { "allow": ["info","warn", "error"] }]
+		"no-console": ["error", { "allow": ["info", "warn", "error"] }]
 	}
 }
