@@ -3,31 +3,40 @@ import { RecObj } from '../../../types/recommend';
 
 interface Props {
 	recWord: RecObj[];
-	searchValue: string;
+	setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+	focusIdx: number;
 }
 
-const Recommend = ({ recWord, searchValue }: Props) => {
+const Recommend = ({ recWord, setSearchValue, focusIdx }: Props) => {
 	const recommendLength = recWord.length !== 0;
+	const getRecWord = (word: string) => {
+		setSearchValue(word);
+	};
+	// const listRef = useRef<HTMLUListElement>(null);
+
+	// useEffect(() => {
+	// 	listRef.current?.children[idxNum]?.focus();
+	// 	console.log('test');
+	// });
 
 	return (
 		<S.RecWrap>
-			추천검색어
-			{recommendLength ? (
-				recWord.map((item: RecObj) => {
-					return (
-						<S.RecItem key={item.sickCd}>
-							<span className="bold">{searchValue}</span>
-							{item.sickNm.replace(searchValue, '')}
-						</S.RecItem>
-					);
-				})
-			) : (
-				<S.RecItem>검색어 없음</S.RecItem>
-			)}
+			<S.RecText>추천 검색어</S.RecText>
+			<S.RecList>
+				{recommendLength ? (
+					recWord.map((item: RecObj, idx: number) => {
+						return (
+							<S.RecItem key={item.sickCd} onClick={() => getRecWord(item.sickNm)} focus={focusIdx === idx}>
+								{item.sickNm}
+							</S.RecItem>
+						);
+					})
+				) : (
+					<S.NoRecItem>검색어 없음</S.NoRecItem>
+				)}
+			</S.RecList>
 		</S.RecWrap>
 	);
 };
-// 검색어 볼드처리
-// 검색어/추천검색어 분리
-// UI 수정
+
 export default Recommend;
