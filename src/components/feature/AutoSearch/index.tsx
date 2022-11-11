@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { AutoSearchContainer, AutoSearchWrap, AutoSearchData } from './styled';
 import { Sick } from '../../../types/sick';
-import { splitTargetRegardlessOfStringCase } from '../../../hooks/stringUtils';
+import { splitTargetRegardlessOfStringCase } from '../../../utils/stringUtils';
 
 type Props = {
 	keyword: string;
