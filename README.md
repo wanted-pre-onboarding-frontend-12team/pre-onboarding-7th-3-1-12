@@ -465,24 +465,27 @@ return (
 > 🌟 API 서버가 실행되어야 정상적으로 작동하므로, 필수적으로 선행되어야 합니다.
 
 ```
+# Clone API Server Repo
+git conle https://github.com/walking-sunset/assignment-api_7th.git
+
+# Install API Server Dependency
 npm install
+
+# Run API Server
 npm start
 ```
 
 ### 프론트 실행
 
 ```bash
-# Clone Repo
-https://github.com/wanted-pre-onboarding-frontend-12team/pre-onboarding-7th-3-1-12.git
+# Clone Front Repo
+git clone https://github.com/wanted-pre-onboarding-frontend-12team/pre-onboarding-7th-3-1-12.git
 
-# Install Dependency
-yarn run install
+# Install Front Dependency
+yarn install
 
-# Run Project
+# Run Front Project
 yarn run dev
-
-# Build Project
-yarn run build
 ```
 
 <br />
