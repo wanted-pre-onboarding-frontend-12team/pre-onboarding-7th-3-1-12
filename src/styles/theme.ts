@@ -17,8 +17,9 @@ const theme = {
 			'400': '#007BE9',
 		},
 		gray: {
-			'100': '#C9CCCF',
-			'200': '#A7AFB7',
+			'100': '#F8F9FA',
+			'200': '#C9CCCF',
+			'300': '#A7AFB7',
 		},
 		black: '#000000',
 		white: '#FFFFFF',
