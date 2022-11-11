@@ -1,7 +1,7 @@
 import SickSearchForm from '@src/components/feature/SickSearch/SickSearchForm';
 import SickSearchAutoComplete from '@src/components/feature/SickSearch/SickSearchAutoComplete';
 import * as S from './styled';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Sick } from '@src/types/sick';
 import { getSicksByIncludeKeyword } from '@src/core/apis/sick';
 import { isNotEmptyArray } from '@src/utils/arrayUtils';
@@ -17,7 +17,6 @@ const autoCompleteTargetKeys = {
 
 const SickSearch = () => {
 	const sickInCache = useMemo(() => new InMemoryCache(), []);
-
 	const [sickKeyword, setSickKeyword] = useState('');
 	const [recommendSicks, setRecommendSicks] = useState<Sick[]>([]);
 
@@ -71,6 +70,7 @@ const SickSearch = () => {
 		switch (event.key) {
 			case autoCompleteTargetKeys.ARROW_DOWN:
 				event.preventDefault();
+
 				if (currentAutoCompleteIndex + 1 === autoCompleteRef?.current?.childElementCount - 2) {
 					setCurrentAutoCompleteIndex(-1);
 					break;
@@ -79,6 +79,7 @@ const SickSearch = () => {
 				break;
 			case autoCompleteTargetKeys.ARROW_UP:
 				event.preventDefault();
+
 				if (currentAutoCompleteIndex - 1 < -1) {
 					setCurrentAutoCompleteIndex(autoCompleteRef?.current?.childElementCount - 3);
 					break;
@@ -92,6 +93,19 @@ const SickSearch = () => {
 				break;
 		}
 	};
+
+	const handleSearchKeywordChangeByKeydown = () => {
+		const currentFocusedAutoCompleteItem = autoCompleteRef?.current?.getElementsByTagName('li')[currentAutoCompleteIndex + 1];
+		if (!currentFocusedAutoCompleteItem) return;
+
+		if (currentFocusedAutoCompleteItem.textContent) {
+			setSickKeyword(currentFocusedAutoCompleteItem.textContent?.slice(2));
+		}
+	};
+
+	useEffect(() => {
+		handleSearchKeywordChangeByKeydown();
+	}, [currentAutoCompleteIndex]);
 
 	const [isSickSearchFormFocused, setIsSickSearchFormFocused] = useState(false);
 

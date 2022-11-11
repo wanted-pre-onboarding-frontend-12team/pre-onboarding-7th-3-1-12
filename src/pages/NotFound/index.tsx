@@ -9,7 +9,7 @@ const NotFound = () => {
 		<div>
 			<Header />
 			<S.InnerContainer>
-				<p className="error-message-default">존재하지 않는 페이지입니다.</p>
+				<p className="error-message-default">존재하지 않는 페이지입니다. 🤪</p>
 				<p className="error-message-url">{`URL: ${location.protocol}//${location.hostname}:${location.port}${locator.pathname}`}</p>
 			</S.InnerContainer>
 		</div>
