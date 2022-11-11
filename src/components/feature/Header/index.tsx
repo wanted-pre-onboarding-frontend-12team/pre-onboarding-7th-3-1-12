@@ -1,10 +1,10 @@
-import { Layout, Navigation, Typography } from '@src/components';
+import { Navigation, Typography } from '@src/components';
 import * as S from './styled';
 import { SymbolImage } from '@src/assets/images';
 
 const Header = () => {
 	return (
-		<Layout>
+		<S.Container>
 			<S.Header>
 				<Typography variant="h1">
 					<S.LinkLogo to="/">
@@ -14,7 +14,7 @@ const Header = () => {
 				</Typography>
 				<Navigation />
 			</S.Header>
-		</Layout>
+		</S.Container>
 	);
 };
 

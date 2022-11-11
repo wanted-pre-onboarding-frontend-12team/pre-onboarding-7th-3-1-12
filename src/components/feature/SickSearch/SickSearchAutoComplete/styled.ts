@@ -7,11 +7,13 @@ export const Container = styled.ul<{ isShow: boolean }>`
 	display: flex;
 	flex-direction: column;
 	width: 480px;
+	max-height: 480px;
 	padding: 1.5em 0;
 	border-radius: 2em;
 	background-color: ${({ theme }) => theme.colors.white};
 	-webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
 	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+	overflow-y: scroll;
 	opacity: ${({ isShow }) => (isShow ? 1 : 0)};
 `;
 
