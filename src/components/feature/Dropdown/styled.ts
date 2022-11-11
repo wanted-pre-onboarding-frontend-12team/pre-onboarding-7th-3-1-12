@@ -17,8 +17,8 @@ export const Container = styled.div`
 export const Ulist = styled.ul`
 	display: flex;
 	align-items: center;
+	flex-direction: column;
 	width: 100%;
-	padding: 1rem;
 
 	.search-icon {
 		width: 25px;
@@ -27,6 +27,12 @@ export const Ulist = styled.ul`
 
 export const SearchList = styled.li<{ isFocus?: boolean }>`
 	display: flex;
-	padding-left: 0.5rem;
-	background-color: ${({ isFocus, theme }) => (isFocus ? theme.colors.white : theme.colors.blue[200])};
+	align-items: center;
+	border-radius: 10px;
+	width: 100%;
+	padding: 1rem;
+	background-color: ${({ isFocus, theme }) => (isFocus ? theme.colors.gray[100] : theme.colors.white)};
+	.Search-item {
+		padding-left: 1rem;
+	}
 `;

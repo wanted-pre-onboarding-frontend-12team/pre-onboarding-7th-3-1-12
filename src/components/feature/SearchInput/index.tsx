@@ -10,6 +10,7 @@ const SearchInput = () => {
 	const [isClicked, setIsClicked] = useState(true);
 	const [searchingDatas, setSearchingDatas] = useState<any[]>([]);
 	const clickRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+	const keyRef = useRef() as React.MutableRefObject<HTMLUListElement>;
 	useOutsideClick(clickRef, setIsClicked);
 	const { search, searchList, onChange } = useSearch();
 
@@ -20,9 +21,28 @@ const SearchInput = () => {
 		}
 	}, [searchList]);
 
+	const [index, setIndex] = useState<number>(-1);
+
+	const handleKeyEvent = (e: React.KeyboardEvent) => {
+		switch (e.key) {
+			case 'ArrowDown':
+				setIndex(index + 1);
+				if (keyRef.current?.childElementCount === index + 1) {
+					setIndex(0);
+				}
+				break;
+			case 'ArrowUp':
+				setIndex(index - 1);
+				if (index <= 0) {
+					setIndex(searchingDatas.length - 1);
+				}
+				break;
+		}
+	};
+
 	return (
 		<S.Container>
-			<S.InputWrap ref={clickRef}>
+			<S.InputWrap ref={clickRef} onKeyDown={handleKeyEvent}>
 				{isClicked ? (
 					<div className="normal-status-search" onClick={() => setIsClicked(!isClicked)}>
 						<img className="search-small-icon" src={searchIconSmall} />
@@ -38,7 +58,7 @@ const SearchInput = () => {
 					<img className="search-large-icon" src={searchIconLarge} />
 				</S.SearchIconWrapper>
 			</S.InputWrap>
-			<Dropdown status={isClicked} string={searchingDatas} />
+			<Dropdown status={isClicked} string={searchingDatas} index={index} keyRef={keyRef} />
 		</S.Container>
 	);
 };

@@ -1,25 +1,27 @@
 import * as S from './styled';
 import { searchIconSmall } from '../../../assets/index';
-import useKeyEvent from '../../../hooks/useKeyEvent';
+
 type Props = {
 	status: boolean;
 	string: { sickCd: string; sickNm: string }[];
+	index: number;
+	keyRef: React.MutableRefObject<HTMLUListElement>;
 };
 
 const Dropdown = (props: Props) => {
-	const { handleKeyEvent } = useKeyEvent();
-
 	return (
 		<>
 			{props.status === false && (
 				<S.Container>
 					{props.string.length ? (
-						props.string.map((el) => (
-							<S.Ulist key={el.sickCd}>
-								<img className="search-icon" src={searchIconSmall} />
-								<li className="search-list" dangerouslySetInnerHTML={{ __html: el.sickNm }} onKeyDown={handleKeyEvent}></li>
-							</S.Ulist>
-						))
+						<S.Ulist ref={props.keyRef}>
+							{props.string.map((el, idx) => (
+								<S.SearchList className="search-list" key={el.sickCd} isFocus={props.index === idx ? true : false}>
+									<img className="search-icon" src={searchIconSmall} />
+									<p className="Search-item" dangerouslySetInnerHTML={{ __html: el.sickNm }}></p>
+								</S.SearchList>
+							))}
+						</S.Ulist>
 					) : (
 						<div className="empty-search">검색어 없음</div>
 					)}
