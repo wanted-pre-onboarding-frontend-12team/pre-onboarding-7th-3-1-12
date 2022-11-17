@@ -466,7 +466,7 @@ return (
 
 ```
 # Clone API Server Repo
-git conle https://github.com/walking-sunset/assignment-api_7th.git
+git clone https://github.com/walking-sunset/assignment-api_7th.git
 
 # Install API Server Dependency
 npm install
